@@ -1050,6 +1050,9 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
     }
 
     public void onLongPressed() {
+        // ELDERLY KEYBOARD: Disabled more keys panel feature
+        return;
+        /*
         sTimerProxy.cancelLongPressTimersOf(this);
         if (isShowingMoreKeysPanel()) {
             return;
@@ -1089,6 +1092,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         final int translatedY = moreKeysPanel.translateY(mLastY);
         moreKeysPanel.onDownEvent(translatedX, translatedY, mPointerId, SystemClock.uptimeMillis());
         mMoreKeysPanel = moreKeysPanel;
+        */
     }
 
     private void cancelKeyTracking() {
