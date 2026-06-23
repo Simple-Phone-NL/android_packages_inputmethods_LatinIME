@@ -441,47 +441,6 @@ public class KeyboardView extends View {
             paint.setTextScaleX(1.0f);
         }
 
-        // Draw hint label.
-        final String hintLabel = key.getHintLabel();
-        if (hintLabel != null && Settings.getInstance().getCurrent().mShowLongpressHints) {
-            paint.setTextSize(key.selectHintTextSize(params));
-            paint.setColor(key.selectHintTextColor(params));
-            // TODO: Should add a way to specify type face for hint letters
-            paint.setTypeface(Typeface.DEFAULT_BOLD);
-            blendAlpha(paint, params.mAnimAlpha);
-            final float labelCharHeight = TypefaceUtils.getReferenceCharHeight(paint);
-            final float labelCharWidth = TypefaceUtils.getReferenceCharWidth(paint);
-            final float hintX, hintBaseline;
-            if (key.hasHintLabel()) {
-                // The hint label is placed just right of the key label. Used mainly on
-                // "phone number" layout.
-                hintX = labelX + params.mHintLabelOffCenterRatio * labelCharWidth;
-                if (key.isAlignHintLabelToBottom(mDefaultKeyLabelFlags)) {
-                    hintBaseline = labelBaseline;
-                } else {
-                    hintBaseline = centerY + labelCharHeight / 2.0f;
-                }
-                paint.setTextAlign(Align.LEFT);
-            } else if (key.hasShiftedLetterHint()) {
-                // The hint label is placed at top-right corner of the key. Used mainly on tablet.
-                hintX = keyWidth - mKeyShiftedLetterHintPadding - labelCharWidth / 2.0f;
-                paint.getFontMetrics(mFontMetrics);
-                hintBaseline = -mFontMetrics.top;
-                paint.setTextAlign(Align.CENTER);
-            } else { // key.hasHintLetter()
-                // The hint letter is placed at top-right corner of the key. Used mainly on phone.
-                final float hintDigitWidth = TypefaceUtils.getReferenceDigitWidth(paint);
-                final float hintLabelWidth = TypefaceUtils.getStringWidth(hintLabel, paint);
-                hintX = keyWidth - mKeyHintLetterPaddingX
-                        - Math.max(hintDigitWidth, hintLabelWidth) / 2.0f;
-                hintBaseline = -paint.ascent() + mKeyHintLetterPaddingY;
-                paint.setTextAlign(Align.CENTER);
-            }
-            final float adjustmentY = params.mHintLabelVerticalAdjustment * labelCharHeight;
-            canvas.drawText(
-                    hintLabel, 0, hintLabel.length(), hintX, hintBaseline + adjustmentY, paint);
-        }
-
         // Draw key icon.
         if (label == null && icon != null) {
             final int iconWidth;
@@ -501,9 +460,6 @@ public class KeyboardView extends View {
             drawIcon(canvas, icon, iconX, iconY, iconWidth, iconHeight);
         }
 
-        if (key.hasPopupHint() && key.getMoreKeys() != null) {
-            drawKeyPopupHint(key, canvas, paint, params);
-        }
     }
 
     // Draw popup hint "..." at the bottom right corner of the key.
