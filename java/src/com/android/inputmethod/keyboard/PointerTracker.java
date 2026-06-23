@@ -1052,47 +1052,6 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
     public void onLongPressed() {
         // ELDERLY KEYBOARD: Disabled more keys panel feature
         return;
-        /*
-        sTimerProxy.cancelLongPressTimersOf(this);
-        if (isShowingMoreKeysPanel()) {
-            return;
-        }
-        if (mSlidOnSpaceBar) {
-            return;
-        }
-        final Key key = getKey();
-        if (key == null) {
-            return;
-        }
-        if (key.hasNoPanelAutoMoreKey()) {
-            cancelKeyTracking();
-            final int moreKeyCode = key.getMoreKeys()[0].mCode;
-            sListener.onPressKey(moreKeyCode, 0 /* repeatCont */, true /* isSinglePointer */);
-            sListener.onCodeInput(moreKeyCode, Constants.NOT_A_COORDINATE,
-                    Constants.NOT_A_COORDINATE, false /* isKeyRepeat */);
-            sListener.onReleaseKey(moreKeyCode, false /* withSliding */);
-            return;
-        }
-        final int code = key.getCode();
-        if (code == Constants.CODE_SPACE || code == Constants.CODE_LANGUAGE_SWITCH) {
-            // Long pressing the space key invokes IME switcher dialog.
-            if (sListener.onCustomRequest(Constants.CUSTOM_CODE_SHOW_INPUT_METHOD_PICKER)) {
-                cancelKeyTracking();
-                sListener.onReleaseKey(code, false /* withSliding */);
-                return;
-            }
-        }
-
-        setReleasedKeyGraphics(key, false /* withAnimation */);
-        final MoreKeysPanel moreKeysPanel = sDrawingProxy.showMoreKeysKeyboard(key, this);
-        if (moreKeysPanel == null) {
-            return;
-        }
-        final int translatedX = moreKeysPanel.translateX(mLastX);
-        final int translatedY = moreKeysPanel.translateY(mLastY);
-        moreKeysPanel.onDownEvent(translatedX, translatedY, mPointerId, SystemClock.uptimeMillis());
-        mMoreKeysPanel = moreKeysPanel;
-        */
     }
 
     private void cancelKeyTracking() {
